@@ -2,6 +2,7 @@ import { defineNuxtModule, createResolver, extendPages, addRouteMiddleware, addI
 import type { NuxtPage } from 'nuxt/schema'
 import { defu } from 'defu'
 import { checkMaintenanceExclude } from './runtime/util/check-exclude'
+import path from 'path'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
@@ -29,6 +30,27 @@ export interface ModuleOptions {
    * @memberof ModuleOptions
    */
   mode?: 'override' | 'redirect'
+
+  /**
+   * Override options for the maintenance mode.
+   *
+   * @memberof ModuleOptions
+   */
+  custom?: {
+    /**
+     * The path to the maintenance page component.
+     *
+     * @type {string}
+     */
+    page?: string
+
+    /**
+     * The path to the middleware that handles the maintenance mode.
+     *
+     * @type {string}
+     */
+    middleware?: string
+  }
 }
 
 /**
@@ -76,6 +98,10 @@ export default defineNuxtModule<ModuleOptions>({
       from: resolver.resolve('./runtime/util/check-exclude'),
     })
 
+    const appRoot = nuxt.options.rootDir
+
+    const maintenancePagePath = options.custom?.page ? resolver.resolve(path.join(appRoot, options.custom?.page)) : resolver.resolve('./runtime/components/maintenance.vue')
+
     // If maintenance mode is 'redirect', add the middleware
     if (options.mode === 'redirect') {
       // Add the maintenance page to the pages
@@ -83,14 +109,16 @@ export default defineNuxtModule<ModuleOptions>({
         pages.push({
           name: 'maintenance',
           path: '/maintenance',
-          file: resolver.resolve('./runtime/components/maintenance.vue'),
+          file: maintenancePagePath,
         })
       })
+
+      const middlewarePath = options.custom?.middleware ? resolver.resolve(path.join(appRoot, options.custom?.middleware)) : resolver.resolve('./runtime/middleware/maintenance.ts')
 
       // Add the maintenance middleware to the Nuxt application
       addRouteMiddleware({
         name: 'maintenance',
-        path: resolver.resolve('runtime/middleware/maintenance.ts'),
+        path: middlewarePath,
         global: true,
       }, { prepend: true })
 
@@ -114,7 +142,7 @@ export default defineNuxtModule<ModuleOptions>({
         }
 
         // Replace the page component with the maintenance component
-        page.file = resolver.resolve('./runtime/components/maintenance.vue')
+        page.file = maintenancePagePath
       })
     })
   },
