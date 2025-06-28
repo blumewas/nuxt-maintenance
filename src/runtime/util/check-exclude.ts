@@ -1,4 +1,4 @@
-export const checkExclude = (toPath: string, exclude: string[] = []): boolean => {
+export const checkMaintenanceExclude = (toPath: string, exclude: string[] = []): boolean => {
   // If no exclude paths are defined, return false (no exclusion)
   if (!exclude || exclude.length === 0) {
     return false

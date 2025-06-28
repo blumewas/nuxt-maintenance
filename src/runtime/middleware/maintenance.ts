@@ -1,5 +1,4 @@
-import { checkExclude } from '../util/check-exclude'
-import { defineNuxtRouteMiddleware, navigateTo, useRuntimeConfig } from '#imports'
+import { defineNuxtRouteMiddleware, navigateTo, useRuntimeConfig, checkMaintenanceExclude } from '#imports'
 
 export default defineNuxtRouteMiddleware(async (to, _from) => {
   const config = useRuntimeConfig()
@@ -14,7 +13,7 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
     return
   }
 
-  const isExcluded = checkExclude(to.path, config.public.maintenance.exclude)
+  const isExcluded = checkMaintenanceExclude(to.path, config.public.maintenance.exclude)
 
   if (isExcluded) {
     // If the current route is excluded from maintenance mode, do not redirect

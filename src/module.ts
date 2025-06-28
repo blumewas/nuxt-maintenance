@@ -1,7 +1,7 @@
-import { defineNuxtModule, createResolver, extendPages, addRouteMiddleware } from '@nuxt/kit'
+import { defineNuxtModule, createResolver, extendPages, addRouteMiddleware, addImports } from '@nuxt/kit'
 import type { NuxtPage } from 'nuxt/schema'
 import { defu } from 'defu'
-import { checkExclude } from './runtime/util/check-exclude'
+import { checkMaintenanceExclude } from './runtime/util/check-exclude'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
@@ -70,6 +70,12 @@ export default defineNuxtModule<ModuleOptions>({
       exclude: options.exclude,
     })
 
+    // Add checkMaintenanceExclude utility to the Nuxt runtime configuration
+    addImports({
+      name: 'checkMaintenanceExclude',
+      from: resolver.resolve('./runtime/util/check-exclude'),
+    })
+
     // If maintenance mode is 'redirect', add the middleware
     if (options.mode === 'redirect') {
       // Add the maintenance page to the pages
@@ -100,7 +106,7 @@ export default defineNuxtModule<ModuleOptions>({
       pages.forEach((page: NuxtPage) => {
         // If the page is excluded, skip it
         if (options.exclude) {
-          const isExcluded = checkExclude(page.path, options.exclude)
+          const isExcluded = checkMaintenanceExclude(page.path, options.exclude)
 
           if (isExcluded) {
             return
