@@ -5,6 +5,10 @@ export default defineNuxtRouteMiddleware(async (to, _from) => {
 
   // If maintenance mode is not enabled, do not redirect
   if (!config.public.maintenance.enabled) {
+    if (to.path === '/maintenance') {
+      return navigateTo('/')
+    }
+
     return
   }
 
