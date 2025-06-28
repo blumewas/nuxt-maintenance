@@ -1,8 +1,8 @@
-import { defineNuxtModule, createResolver, extendPages, addRouteMiddleware, addImports } from '@nuxt/kit'
+import { addImports, addRouteMiddleware, createResolver, defineNuxtModule, extendPages } from '@nuxt/kit'
 import type { NuxtPage } from 'nuxt/schema'
 import { defu } from 'defu'
 import { checkMaintenanceExclude } from './runtime/util/check-exclude'
-import path from 'path'
+import path from 'node:path'
 
 // Module options TypeScript interface definition
 export interface ModuleOptions {
@@ -59,7 +59,7 @@ export interface ModuleOptions {
  * @param {ModuleOptions} options
  * @return {*}  {ModuleOptions}
  */
-const getNormalizedOptions = (options: ModuleOptions): ModuleOptions => {
+function getNormalizedOptions(options: ModuleOptions): ModuleOptions {
   const defaultOptions: ModuleOptions = {
     enabled: false,
     mode: 'override',

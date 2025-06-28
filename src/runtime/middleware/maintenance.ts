@@ -1,4 +1,4 @@
-import { defineNuxtRouteMiddleware, navigateTo, useRuntimeConfig, checkMaintenanceExclude } from '#imports'
+import { checkMaintenanceExclude, defineNuxtRouteMiddleware, navigateTo, useRuntimeConfig } from '#imports'
 
 export default defineNuxtRouteMiddleware(async (to, _from) => {
   const config = useRuntimeConfig()

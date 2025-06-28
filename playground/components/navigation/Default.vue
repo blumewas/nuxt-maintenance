@@ -1,10 +1,20 @@
 <template>
   <div class="navigation">
-    <NuxtLink to="/">Home</NuxtLink>
-    <NuxtLink to="/subpage">Subpage</NuxtLink>
-    <NuxtLink to="/excluded">Excluded Page</NuxtLink>
-    <NuxtLink to="/dynamic/123">Dynamic Page</NuxtLink>
-    <NuxtLink to="/excluded/123">Excluded Dynamic Page</NuxtLink>
+    <NuxtLink to="/">
+      Home
+    </NuxtLink>
+    <NuxtLink to="/subpage">
+      Subpage
+    </NuxtLink>
+    <NuxtLink to="/excluded">
+      Excluded Page
+    </NuxtLink>
+    <NuxtLink to="/dynamic/123">
+      Dynamic Page
+    </NuxtLink>
+    <NuxtLink to="/excluded/123">
+      Excluded Dynamic Page
+    </NuxtLink>
   </div>
 </template>
 
