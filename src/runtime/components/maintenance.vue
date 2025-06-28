@@ -1,6 +1,5 @@
 <script setup>
-const config = useRuntimeConfig()
-console.log(config.public.maintenance)
+
 </script>
 
 <template>

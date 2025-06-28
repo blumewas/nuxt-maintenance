@@ -2,7 +2,8 @@ export default defineNuxtConfig({
   modules: ['../src/module'],
   devtools: { enabled: true },
   maintenance: {
-    enabled: false,
-    exclude: ['/excluded'],
+    enabled: true,
+    exclude: ['/excluded', '/excluded/:id'],
+    mode: 'redirect',
   },
 })
