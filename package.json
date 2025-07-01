@@ -1,6 +1,6 @@
 {
   "name": "@blumewas/nuxt-maintenance",
-  "version": "1.1.4",
+  "version": "1.1.5",
   "description": "A Nuxt module to enable maintenance mode with customizable options.",
   "repository": {
     "type": "git",
