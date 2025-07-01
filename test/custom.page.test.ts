@@ -18,7 +18,7 @@ describe('environment configuration', async () => {
         enabled: true,
         mode: 'redirect',
         custom: {
-          page: './maintenance.vue',
+          page: '~/maintenance.vue',
         },
       },
     },
